@@ -24,8 +24,8 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://uniquevisionshc.vercel.app";
-const shareTitle = `${site.name} | In-Home Care in Hammond, LA`;
-const shareDescription = `${site.tagline} ${site.pillars} Serving Tangipahoa, Ascension, East & West Baton Rouge. Call ${site.phone}.`;
+const shareTitle = `${site.name} | In-Home Care in LA & MS`;
+const shareDescription = `${site.tagline} ${site.pillars} Offices in Hammond, LA and Liberty, MS. Call ${site.phone}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,7 +39,9 @@ export const metadata: Metadata = {
     "home care",
     "in-home care",
     "Hammond LA",
+    "Liberty MS",
     "Tangipahoa",
+    "Mississippi home care",
     "senior care",
     "non-medical home care",
     "Unique Visions Home Care",

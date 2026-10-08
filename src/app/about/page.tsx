@@ -28,8 +28,8 @@ export default function AboutPage() {
             {site.about}
           </p>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Owned by {site.owner} and based in Hammond, Louisiana, we treat every
-            client like family.
+            Owned by {site.owner}, with offices in Hammond, Louisiana and
+            Liberty, Mississippi, we treat every client like family.
           </p>
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
@@ -81,18 +81,38 @@ export default function AboutPage() {
           Where we serve
         </h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Based at {site.address.full}. {site.serviceAreaLine}
+          {site.serviceAreaLine}
         </p>
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {site.serviceAreas.map((area) => (
-            <li
-              key={area}
-              className="rounded-full border border-brand/15 bg-white/70 px-3 py-1.5 text-sm text-brand-deep"
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {site.locations.map((location) => (
+            <div
+              key={location.id}
+              className="rounded-2xl border border-brand/10 bg-white/70 px-4 py-3 text-sm text-brand-deep"
             >
-              {area}
-            </li>
+              <p className="font-semibold text-brand">{location.label}</p>
+              <p className="mt-1 text-muted-foreground">{location.full}</p>
+            </div>
           ))}
-        </ul>
+        </div>
+        <div className="mt-8 grid gap-8 lg:grid-cols-2">
+          {site.serviceRegions.map((region) => (
+            <div key={region.state}>
+              <h3 className="text-sm font-semibold tracking-[0.14em] text-gold uppercase">
+                {region.state}
+              </h3>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {region.areas.map((area) => (
+                  <li
+                    key={`${region.state}-${area}`}
+                    className="rounded-full border border-brand/15 bg-white/70 px-3 py-1.5 text-sm text-brand-deep"
+                  >
+                    {area}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
         <p className="mt-6 text-sm text-muted-foreground">
           {site.paymentOptions}. NPI {site.npi}.
         </p>

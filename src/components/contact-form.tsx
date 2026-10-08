@@ -40,8 +40,7 @@ export function ContactForm() {
         .join("\n"),
     );
 
-    // Opens the visitor's email app addressed to the client's Gmail.
-    // No third-party signup or client inbox verification required.
+    // Opens the visitor's email app addressed to the agency inbox.
     window.location.href = `${site.emailHref}?subject=${subject}&body=${body}`;
     setStatus("sent");
   }

@@ -167,10 +167,17 @@ export default function HomePage() {
             </div>
           </div>
           <div className="space-y-3 text-sm text-white/85">
-            <p className="flex items-start gap-2">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-gold-soft" />
-              <span>{site.address.full}</span>
-            </p>
+            {site.locations.map((location) => (
+              <p key={location.id} className="flex items-start gap-2">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-gold-soft" />
+                <span>
+                  <span className="block font-medium text-gold-soft">
+                    {location.label}
+                  </span>
+                  {location.full}
+                </span>
+              </p>
+            ))}
             <p>
               Email{" "}
               <a href={site.emailHref} className="text-gold-soft underline">

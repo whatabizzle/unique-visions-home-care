@@ -13,16 +13,33 @@ export const site = {
   acceptingClients: "Now accepting new clients",
   familyLine:
     "At Unique Visions Home Care, you are not just a client — you are family.",
-  values: [
-    "Compassion",
-    "Dignity",
-    "Care",
-  ] as const,
+  values: ["Compassion", "Dignity", "Care"] as const,
   phone: "(985) 289-2882",
   phoneHref: "tel:+19852892882",
   fax: "(985) 289-2884",
-  email: "uniquevisionshealthcare@gmail.com",
-  emailHref: "mailto:uniquevisionshealthcare@gmail.com",
+  email: "uniquevisionshomecare1@outlook.com",
+  emailHref: "mailto:uniquevisionshomecare1@outlook.com",
+  locations: [
+    {
+      id: "louisiana",
+      label: "Louisiana office",
+      line1: "406 W. Morris Ave, Ste. C",
+      city: "Hammond",
+      state: "LA",
+      zip: "70403",
+      full: "406 W. Morris Ave, Ste. C, Hammond, LA 70403",
+    },
+    {
+      id: "mississippi",
+      label: "Mississippi office",
+      line1: "3318 MS Hwy 24",
+      city: "Liberty",
+      state: "MS",
+      zip: "39645",
+      full: "3318 MS Hwy 24, Liberty, MS 39645",
+    },
+  ],
+  /** Primary / mailing address (Louisiana) */
   address: {
     line1: "406 W. Morris Ave, Ste. C",
     city: "Hammond",
@@ -37,13 +54,46 @@ export const site = {
   paymentOptions:
     "Private pay, insurance, VA, and long-term care insurance accepted",
   serviceAreaLine:
-    "Serving Tangipahoa, Ascension, East & West Baton Rouge, and surrounding areas.",
-  serviceAreas: [
-    "Tangipahoa",
-    "Ascension",
-    "East Baton Rouge",
-    "West Baton Rouge",
-    "Surrounding areas",
+    "Serving communities across Louisiana and Mississippi from our Hammond and Liberty offices.",
+  serviceRegions: [
+    {
+      state: "Louisiana",
+      areas: [
+        "Ascension",
+        "Assumption",
+        "Bossier",
+        "Catahoula",
+        "Cameron",
+        "East Baton Rouge",
+        "East Feliciana",
+        "Jefferson",
+        "Lafayette",
+        "Livingston",
+        "Orleans",
+        "Plaquemines",
+        "Pointe Coupee",
+        "St. Bernard",
+        "St. Charles",
+        "St. James",
+        "St. Tammany",
+        "Tangipahoa",
+        "Terrebonne",
+        "Washington",
+        "West Baton Rouge",
+        "West Feliciana",
+      ],
+    },
+    {
+      state: "Mississippi",
+      areas: [
+        "Amite",
+        "Pike",
+        "Lincoln",
+        "Franklin",
+        "Wilkinson",
+        "Walthall",
+      ],
+    },
   ],
   services: [
     {

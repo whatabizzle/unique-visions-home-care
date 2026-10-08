@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Non-medical in-home care from Unique Visions Home Care LLC—personal care, companionship, meals, housekeeping, medication reminders, respite, transportation, and daily living assistance in Hammond, LA and surrounding areas.",
+    "Non-medical in-home care from Unique Visions Home Care LLC—personal care, companionship, meals, housekeeping, medication reminders, respite, transportation, and daily living assistance across Louisiana and Mississippi.",
 };
 
 export default function ServicesPage() {

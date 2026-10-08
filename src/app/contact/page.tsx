@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Contact Unique Visions Home Care LLC at ${site.phone} or ${site.email}. Office at ${site.address.full}.`,
+  description: `Contact Unique Visions Home Care LLC at ${site.phone} or ${site.email}. Offices in Hammond, LA and Liberty, MS.`,
 };
 
 export default function ContactPage() {
@@ -51,16 +51,18 @@ export default function ContactPage() {
                   </a>
                 </div>
               </li>
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
-                <div>
-                  <p className="font-medium text-foreground">Office</p>
-                  <p className="text-muted-foreground">{site.address.line1}</p>
-                  <p className="text-muted-foreground">
-                    {site.address.city}, {site.address.state} {site.address.zip}
-                  </p>
-                </div>
-              </li>
+              {site.locations.map((location) => (
+                <li key={location.id} className="flex gap-3">
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
+                  <div>
+                    <p className="font-medium text-foreground">{location.label}</p>
+                    <p className="text-muted-foreground">{location.line1}</p>
+                    <p className="text-muted-foreground">
+                      {location.city}, {location.state} {location.zip}
+                    </p>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
           <p className="text-sm text-muted-foreground">

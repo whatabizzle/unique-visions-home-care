@@ -77,11 +77,14 @@ export function SiteFooter() {
                 {site.email}
               </a>
             </li>
-            <li className="leading-relaxed">
-              {site.address.line1}
-              <br />
-              {site.address.city}, {site.address.state} {site.address.zip}
-            </li>
+            {site.locations.map((location) => (
+              <li key={location.id} className="leading-relaxed">
+                <span className="block text-gold-soft/90">{location.label}</span>
+                {location.line1}
+                <br />
+                {location.city}, {location.state} {location.zip}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
