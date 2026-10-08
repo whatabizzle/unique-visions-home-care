@@ -11,12 +11,10 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
-  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
-    setErrorMessage("");
 
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") ?? "").trim();
@@ -26,40 +24,26 @@ export function ContactForm() {
 
     if (!name || !phone || !message) {
       setStatus("error");
-      setErrorMessage(
-        "Please share your name, phone number, and a short message so we can follow up.",
-      );
       return;
     }
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, message }),
-      });
-      const data = (await response.json().catch(() => ({}))) as {
-        error?: string;
-        message?: string;
-      };
+    const subject = encodeURIComponent(`Care inquiry from ${name}`);
+    const body = encodeURIComponent(
+      [
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        email ? `Email: ${email}` : null,
+        "",
+        message,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    );
 
-      if (!response.ok) {
-        setStatus("error");
-        setErrorMessage(
-          data.error ||
-            "Could not send your inquiry. Please call us and we'll help right away.",
-        );
-        return;
-      }
-
-      setStatus("sent");
-      event.currentTarget.reset();
-    } catch {
-      setStatus("error");
-      setErrorMessage(
-        "Could not send your inquiry. Please call us and we'll help right away.",
-      );
-    }
+    // Opens the visitor's email app addressed to the client's Gmail.
+    // No third-party signup or client inbox verification required.
+    window.location.href = `${site.emailHref}?subject=${subject}&body=${body}`;
+    setStatus("sent");
   }
 
   return (
@@ -114,17 +98,14 @@ export function ContactForm() {
 
       {status === "error" ? (
         <p className="text-sm text-destructive" role="alert">
-          {errorMessage}{" "}
-          Prefer a call?{" "}
-          <a href={site.phoneHref} className="font-semibold underline">
-            {site.phone}
-          </a>
+          Please share your name, phone number, and a short message so we can
+          follow up.
         </p>
       ) : null}
       {status === "sent" ? (
         <p className="text-sm text-brand" role="status">
-          Thank you — your inquiry was sent. We&apos;ll follow up soon. Need a
-          quicker response? Call{" "}
+          Opening your email app to message {site.email}… Prefer a quicker
+          response? Call{" "}
           <a href={site.phoneHref} className="font-semibold underline">
             {site.phone}
           </a>
@@ -138,7 +119,7 @@ export function ContactForm() {
         disabled={status === "sending"}
         className="h-11 bg-brand px-6 text-primary-foreground hover:bg-brand-deep"
       >
-        {status === "sending" ? "Sending…" : "Send inquiry"}
+        {status === "sending" ? "Preparing message…" : "Send inquiry"}
       </Button>
     </form>
   );
