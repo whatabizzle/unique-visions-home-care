@@ -21,8 +21,8 @@ export const site = {
   phone: "(985) 289-2882",
   phoneHref: "tel:+19852892882",
   fax: "(985) 289-2884",
-  email: "uniquevisionshomecare1@outlook.com",
-  emailHref: "mailto:uniquevisionshomecare1@outlook.com",
+  email: "uniquevisionshealthcare@gmail.com",
+  emailHref: "mailto:uniquevisionshealthcare@gmail.com",
   address: {
     line1: "406 W. Morris Ave, Ste. C",
     city: "Hammond",

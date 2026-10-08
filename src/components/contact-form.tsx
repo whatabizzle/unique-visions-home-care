@@ -11,10 +11,12 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
+    setErrorMessage("");
 
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") ?? "").trim();
@@ -24,24 +26,40 @@ export function ContactForm() {
 
     if (!name || !phone || !message) {
       setStatus("error");
+      setErrorMessage(
+        "Please share your name, phone number, and a short message so we can follow up.",
+      );
       return;
     }
 
-    const subject = encodeURIComponent(`Care inquiry from ${name}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${name}`,
-        `Phone: ${phone}`,
-        email ? `Email: ${email}` : null,
-        "",
-        message,
-      ]
-        .filter(Boolean)
-        .join("\n")
-    );
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, email, message }),
+      });
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        message?: string;
+      };
 
-    window.location.href = `${site.emailHref}?subject=${subject}&body=${body}`;
-    setStatus("sent");
+      if (!response.ok) {
+        setStatus("error");
+        setErrorMessage(
+          data.error ||
+            "Could not send your inquiry. Please call us and we'll help right away.",
+        );
+        return;
+      }
+
+      setStatus("sent");
+      event.currentTarget.reset();
+    } catch {
+      setStatus("error");
+      setErrorMessage(
+        "Could not send your inquiry. Please call us and we'll help right away.",
+      );
+    }
   }
 
   return (
@@ -96,13 +114,17 @@ export function ContactForm() {
 
       {status === "error" ? (
         <p className="text-sm text-destructive" role="alert">
-          Please share your name, phone number, and a short message so we can
-          follow up.
+          {errorMessage}{" "}
+          Prefer a call?{" "}
+          <a href={site.phoneHref} className="font-semibold underline">
+            {site.phone}
+          </a>
         </p>
       ) : null}
       {status === "sent" ? (
         <p className="text-sm text-brand" role="status">
-          Opening your email app… Prefer a quicker response? Call{" "}
+          Thank you — your inquiry was sent. We&apos;ll follow up soon. Need a
+          quicker response? Call{" "}
           <a href={site.phoneHref} className="font-semibold underline">
             {site.phone}
           </a>
@@ -116,7 +138,7 @@ export function ContactForm() {
         disabled={status === "sending"}
         className="h-11 bg-brand px-6 text-primary-foreground hover:bg-brand-deep"
       >
-        {status === "sending" ? "Preparing message…" : "Send inquiry"}
+        {status === "sending" ? "Sending…" : "Send inquiry"}
       </Button>
     </form>
   );
