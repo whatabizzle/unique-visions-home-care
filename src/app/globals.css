@@ -1,0 +1,184 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-outfit);
+  --font-script: var(--font-great-vibes);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-blush: var(--blush);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Brand: deep maroon heart + warm gold crown */
+  --brand: #8f1f24;
+  --brand-deep: #5c1216;
+  --gold: #d4922a;
+  --gold-soft: #f0c56e;
+  --blush: #f7ebe3;
+
+  --background: #fbf6f1;
+  --foreground: #2a1714;
+  --card: #fffaf6;
+  --card-foreground: #2a1714;
+  --popover: #fffaf6;
+  --popover-foreground: #2a1714;
+  --primary: #8f1f24;
+  --primary-foreground: #fff8f2;
+  --secondary: #f3e4d6;
+  --secondary-foreground: #5c1216;
+  --muted: #f0e4da;
+  --muted-foreground: #6d5248;
+  --accent: #ead7a8;
+  --accent-foreground: #4a2e12;
+  --destructive: oklch(0.55 0.22 27);
+  --border: #e4d2c4;
+  --input: #e8d7c9;
+  --ring: #d4922a;
+  --chart-1: #8f1f24;
+  --chart-2: #d4922a;
+  --chart-3: #6d5248;
+  --chart-4: #c45c48;
+  --chart-5: #2a1714;
+  --radius: 0.7rem;
+  --sidebar: #fffaf6;
+  --sidebar-foreground: #2a1714;
+  --sidebar-primary: #8f1f24;
+  --sidebar-primary-foreground: #fff8f2;
+  --sidebar-accent: #f3e4d6;
+  --sidebar-accent-foreground: #5c1216;
+  --sidebar-border: #e4d2c4;
+  --sidebar-ring: #d4922a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(1200px 600px at 10% -10%, rgb(212 146 42 / 0.14), transparent 55%),
+      radial-gradient(900px 500px at 95% 5%, rgb(143 31 36 / 0.1), transparent 50%),
+      linear-gradient(180deg, #fbf6f1 0%, #f7ebe3 45%, #fbf6f1 100%);
+    background-attachment: fixed;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .font-script {
+    font-family: var(--font-great-vibes), cursive;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-fade-up-delay {
+    animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  }
+
+  .animate-fade-up-delay-2 {
+    animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  }
+
+  .animate-kenburns {
+    animation: kenburns 18s ease-in-out infinite alternate;
+  }
+
+  .animate-soft-pulse {
+    animation: soft-pulse 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-fade-up-delay-2,
+  .animate-kenburns,
+  .animate-soft-pulse {
+    animation: none !important;
+  }
+}
